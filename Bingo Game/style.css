@@ -1,0 +1,345 @@
+        /* Universal box-sizing for consistent layout */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            /* Using Inter for a clean, modern feel */
+        }
+
+        /* Body styling for full viewport height and a vibrant background */
+        body {
+            min-height: 100vh;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #6dd5ed, #2193b0);
+            /* A cool blue gradient */
+            color: #333;
+            /* Default text color */
+            overflow-x: hidden;
+            /* Prevent horizontal scroll */
+        }
+
+        /* Main container for the game */
+        .container {
+            width: 95%;
+            max-width: 900px;
+            /* Max width to keep content readable on large screens */
+            padding: 2rem;
+            background-color: rgba(255, 255, 255, 0.95);
+            /* Slightly transparent white */
+            border-radius: 1.5rem;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+            /* Deeper shadow for pop-out effect */
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            /* Space between sections */
+            animation: fadeIn 1s ease-out;
+            /* Fade in animation for the container */
+        }
+
+        /* Animation for container fade-in */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Game Title */
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            /* Responsive font size */
+            color: #007bff;
+            /* Primary blue color */
+            margin-bottom: 1rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Display for the called number */
+        .called-number-display {
+            background-color: #e0f7fa;
+            /* Light cyan background */
+            padding: 1rem 1.5rem;
+            border-radius: 1rem;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .called-number-display p {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            color: #555;
+            margin: 0;
+        }
+
+        #current-number {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(4rem, 10vw, 7rem);
+            /* Very large, responsive font size */
+            font-weight: 700;
+            color: #ff6347;
+            /* Bright coral for emphasis */
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+            min-width: 100px;
+            /* Ensure it doesn't shrink too much */
+            display: inline-block;
+            animation: numberCall 0.5s ease-out;
+            /* Animation for number change */
+        }
+
+        /* Animation for number calling */
+        @keyframes numberCall {
+            0% {
+                transform: scale(0.5) translateY(-10px);
+                opacity: 0;
+            }
+
+            80% {
+                transform: scale(1.1) translateY(5px);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Game messages */
+        #game-messages {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            color: #007bff;
+            font-weight: 600;
+            min-height: 2rem;
+            /* Reserve space to prevent layout shifts */
+        }
+
+        /* Bingo Board Grid */
+        .bingo-board {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            /* 5 equal columns */
+            gap: 0.5rem;
+            /* Space between cells */
+            background-color: #fff;
+            border: 2px solid #007bff;
+            border-radius: 1rem;
+            padding: 0.75rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Bingo Header Cells (B, I, N, G, O) */
+        .bingo-header {
+            background-color: #007bff;
+            /* Blue header */
+            color: white;
+            font-weight: 700;
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            padding: 0.75rem 0.5rem;
+            border-radius: 0.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Individual Bingo Cells */
+        .bingo-cell {
+            background-color: #e0f7fa;
+            /* Light cyan for numbers */
+            color: #333;
+            font-size: clamp(1.2rem, 3.5vw, 2rem);
+            font-weight: 600;
+            padding: 1rem 0.5rem;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            user-select: none;
+            /* Prevent text selection */
+            -webkit-tap-highlight-color: transparent;
+            /* Remove tap highlight on mobile */
+        }
+
+        /* Free Space Cell */
+        .bingo-cell.free-space {
+            background-color: #ffdd00;
+            /* Bright yellow for free space */
+            color: #333;
+            font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+        }
+
+        /* Marked Cell */
+        .bingo-cell.marked {
+            background-color: #a7f3d0;
+            /* Soft green when marked */
+            color: #10b981;
+            /* Darker green text */
+            transform: scale(0.95);
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Hover effect for cells */
+        .bingo-cell:not(.marked):hover {
+            background-color: #c0f0f8;
+            /* Lighter cyan on hover */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Active (click) effect for cells */
+        .bingo-cell:active {
+            transform: scale(0.9);
+        }
+
+        /* Winning line highlight */
+        .bingo-cell.winning-line {
+            background-color: #fca5a5;
+            /* Light red for winning line */
+            color: #dc2626;
+            /* Darker red text */
+            animation: highlightWin 1s infinite alternate;
+            /* Pulsing highlight */
+        }
+
+        /* Keyframes for winning line highlight */
+        @keyframes highlightWin {
+            from {
+                background-color: #fca5a5;
+            }
+
+            to {
+                background-color: #ef4444;
+            }
+        }
+
+        /* Control buttons */
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            /* Space between buttons */
+            flex-wrap: wrap;
+            /* Allow buttons to wrap on smaller screens */
+        }
+
+        .controls button {
+            padding: 0.8rem 1.8rem;
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            font-weight: 600;
+            border: none;
+            border-radius: 2rem;
+            /* Pill-shaped buttons */
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            user-select: none;
+        }
+
+        /* Call Next Number Button */
+        #call-number-btn {
+            background: linear-gradient(45deg, #28a745, #218838);
+            /* Green gradient */
+            color: white;
+        }
+
+        #call-number-btn:hover {
+            background: linear-gradient(45deg, #218838, #28a745);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        #call-number-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* New Game Button */
+        #new-game-btn {
+            background: linear-gradient(45deg, #6c757d, #5a6268);
+            /* Gray gradient */
+            color: white;
+        }
+
+        #new-game-btn:hover {
+            background: linear-gradient(45deg, #5a6268, #6c757d);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        #new-game-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Disabled button state */
+        .controls button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .container {
+                padding: 1.5rem;
+                gap: 1rem;
+            }
+
+            h1 {
+                font-size: clamp(2rem, 8vw, 3rem);
+            }
+
+            .called-number-display {
+                padding: 0.8rem 1rem;
+            }
+
+            #current-number {
+                font-size: clamp(3rem, 12vw, 5rem);
+            }
+
+            .bingo-board {
+                gap: 0.3rem;
+                padding: 0.5rem;
+            }
+
+            .bingo-header,
+            .bingo-cell {
+                font-size: clamp(0.9rem, 3.5vw, 1.5rem);
+                padding: 0.5rem 0.3rem;
+            }
+
+            .controls button {
+                padding: 0.6rem 1.2rem;
+                font-size: clamp(0.9rem, 3vw, 1.1rem);
+            }
+        }
+
+        @media (max-width: 400px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .controls {
+                flex-direction: column;
+                /* Stack buttons vertically */
+            }
+        }
